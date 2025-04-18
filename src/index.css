@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: #1db954;
+    --color-primary-dark: #1aa34a;
+    --color-background: #121212;
+    --color-surface: #181818;
+    --color-surface-light: #282828;
+    --color-text: #ffffff;
+    --color-text-secondary: #b3b3b3;
+  }
+
+  body {
+    @apply bg-[#121212] text-white m-0 font-sans antialiased;
+  }
+
+  /* Scrollbar Styles */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-700 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-600;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-[#1db954] text-black font-bold py-2 px-4 rounded-full hover:bg-[#1ed760] transition-colors;
+  }
+
+  .btn-secondary {
+    @apply bg-transparent border border-white text-white font-bold py-2 px-4 rounded-full hover:border-[#1db954] hover:text-[#1db954] transition-colors;
+  }
+
+  .nav-link {
+    @apply flex items-center space-x-4 px-2 py-2 rounded-md transition-colors text-gray-400 hover:text-white;
+  }
+
+  .nav-link.active {
+    @apply text-white;
+  }
+
+  .card {
+    @apply bg-[#181818] p-4 rounded-lg hover:bg-[#282828] transition-colors group cursor-pointer;
+  }
+
+  .card-image {
+    @apply aspect-square bg-[#282828] rounded-md mb-4 overflow-hidden;
+  }
+
+  .play-button {
+    @apply absolute bottom-6 right-2 w-12 h-12 bg-[#1db954] rounded-full shadow-lg flex items-center justify-center text-black opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200;
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
