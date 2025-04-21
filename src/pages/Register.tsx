@@ -36,53 +36,86 @@ const Register = () => {
     <Box
       sx={{
         minHeight: '100vh',
+        width: '100vw',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundImage: 'url("/background.png")', // Replace with your background image path
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        position: 'relative',
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.6)', // dark overlay
-          zIndex: 0,
+        background: 'linear-gradient(-45deg, #1db954, #232526, #121212, #1db954)',
+        backgroundSize: '400% 400%',
+        animation: 'gradientBG 12s ease infinite',
+        fontFamily: 'Inter, Roboto, Arial, sans-serif',
+        overflow: 'auto',
+        '@keyframes gradientBG': {
+          '0%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+          '100%': { backgroundPosition: '0% 50%' },
         },
       }}
     >
-      <Container maxWidth="sm" sx={{ position: 'relative', zIndex: 1 }}>
+      <Container maxWidth="sm" sx={{ position: 'relative', zIndex: 1, width: '100%', display: 'flex', justifyContent: 'center' }}>
         <Paper
-          elevation={3}
+          elevation={0}
           sx={{
-            padding: 4,
+            p: { xs: 2, sm: 4 },
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            backgroundColor: 'rgba(0, 0, 0, 0.8)',
-            backdropFilter: 'blur(10px)',
+            borderRadius: 6,
+            boxShadow: '0 8px 40px 0 rgba(31, 38, 135, 0.22)',
+            background: 'rgba(255,255,255,0.11)',
+            backdropFilter: 'blur(22px) saturate(180%)',
+            border: '1px solid rgba(255,255,255,0.15)',
+            width: '100%',
+            maxWidth: 420,
+            mt: { xs: 4, sm: 10 },
+            mb: { xs: 4, sm: 10 },
           }}
         >
+          {/* Creative SVG Icon */}
+          <Box sx={{ mb: 2 }}>
+            <svg width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="27" cy="27" r="27" fill="#1DB954" fillOpacity="0.18"/>
+              <path d="M17 27C21 31 33 31 37 27" stroke="#1DB954" strokeWidth="2.5" strokeLinecap="round"/>
+              <circle cx="21" cy="22" r="2" fill="#1DB954"/>
+              <circle cx="33" cy="22" r="2" fill="#1DB954"/>
+            </svg>
+          </Box>
           <Box
             component="img"
             src="/logo.png"
             alt="Music Platform Logo"
-            sx={{ width: 48, height: 48, marginBottom: 2 }}
+            sx={{ width: 56, height: 56, mb: 2, borderRadius: 2, boxShadow: '0 2px 12px rgba(29,185,84,0.15)' }}
           />
-          <Typography component="h1" variant="h5" color="white" gutterBottom>
+          <Typography
+            component="h1"
+            variant="h4"
+            sx={{
+              color: '#fff',
+              fontWeight: 800,
+              mb: 1,
+              letterSpacing: '-0.5px',
+              textShadow: '0 2px 8px rgba(0,0,0,0.10)'
+            }}
+            gutterBottom
+          >
             Create your account
           </Typography>
+          <Typography
+            variant="subtitle1"
+            sx={{ color: 'rgba(255,255,255,0.75)', mb: 3, fontWeight: 400, fontSize: '1.1rem' }}
+          >
+            Join the music world today
+          </Typography>
           {error && (
-            <Typography color="error" sx={{ mb: 2 }}>
+            <Typography color="error" sx={{ mb: 2, fontWeight: 500 }}>
               {error}
             </Typography>
           )}
-          <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%', mt: 1 }}>
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            sx={{ width: '100%', mt: 1, gap: 2, display: 'flex', flexDirection: 'column' }}
+          >
             <TextField
               margin="normal"
               required
@@ -93,16 +126,27 @@ const Register = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               sx={{
-                '& .MuiOutlinedInput-root': {
-                  color: 'white',
-                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                  '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.23)' },
-                  '&:hover fieldset': { borderColor: 'rgba(255, 255, 255, 0.5)' },
-                  '&.Mui-focused fieldset': { borderColor: '#1DB954' },
+                input: {
+                  color: '#fff',
+                  fontWeight: 500,
+                  letterSpacing: '0.03em',
+                  background: 'rgba(255,255,255,0.07)',
+                  borderRadius: '8px',
                 },
-                '& .MuiInputLabel-root': {
-                  color: 'rgba(255, 255, 255, 0.7)',
-                  '&.Mui-focused': { color: '#1DB954' },
+                label: {
+                  color: 'rgba(255,255,255,0.7)',
+                  fontWeight: 400,
+                },
+                '& label.Mui-focused': {
+                  color: '#1DB954',
+                },
+                '& .MuiOutlinedInput-root': {
+                  color: '#fff',
+                  background: 'rgba(255,255,255,0.07)',
+                  borderRadius: '8px',
+                  '& fieldset': { borderColor: 'rgba(255,255,255,0.18)' },
+                  '&:hover fieldset': { borderColor: '#1DB954' },
+                  '&.Mui-focused fieldset': { borderColor: '#1DB954' },
                 },
               }}
             />
@@ -116,16 +160,27 @@ const Register = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               sx={{
-                '& .MuiOutlinedInput-root': {
-                  color: 'white',
-                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                  '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.23)' },
-                  '&:hover fieldset': { borderColor: 'rgba(255, 255, 255, 0.5)' },
-                  '&.Mui-focused fieldset': { borderColor: '#1DB954' },
+                input: {
+                  color: '#fff',
+                  fontWeight: 500,
+                  letterSpacing: '0.03em',
+                  background: 'rgba(255,255,255,0.07)',
+                  borderRadius: '8px',
                 },
-                '& .MuiInputLabel-root': {
-                  color: 'rgba(255, 255, 255, 0.7)',
-                  '&.Mui-focused': { color: '#1DB954' },
+                label: {
+                  color: 'rgba(255,255,255,0.7)',
+                  fontWeight: 400,
+                },
+                '& label.Mui-focused': {
+                  color: '#1DB954',
+                },
+                '& .MuiOutlinedInput-root': {
+                  color: '#fff',
+                  background: 'rgba(255,255,255,0.07)',
+                  borderRadius: '8px',
+                  '& fieldset': { borderColor: 'rgba(255,255,255,0.18)' },
+                  '&:hover fieldset': { borderColor: '#1DB954' },
+                  '&.Mui-focused fieldset': { borderColor: '#1DB954' },
                 },
               }}
             />
@@ -138,16 +193,27 @@ const Register = () => {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               sx={{
-                '& .MuiOutlinedInput-root': {
-                  color: 'white',
-                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                  '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.23)' },
-                  '&:hover fieldset': { borderColor: 'rgba(255, 255, 255, 0.5)' },
-                  '&.Mui-focused fieldset': { borderColor: '#1DB954' },
+                input: {
+                  color: '#fff',
+                  fontWeight: 500,
+                  letterSpacing: '0.03em',
+                  background: 'rgba(255,255,255,0.07)',
+                  borderRadius: '8px',
                 },
-                '& .MuiInputLabel-root': {
-                  color: 'rgba(255, 255, 255, 0.7)',
-                  '&.Mui-focused': { color: '#1DB954' },
+                label: {
+                  color: 'rgba(255,255,255,0.7)',
+                  fontWeight: 400,
+                },
+                '& label.Mui-focused': {
+                  color: '#1DB954',
+                },
+                '& .MuiOutlinedInput-root': {
+                  color: '#fff',
+                  background: 'rgba(255,255,255,0.07)',
+                  borderRadius: '8px',
+                  '& fieldset': { borderColor: 'rgba(255,255,255,0.18)' },
+                  '&:hover fieldset': { borderColor: '#1DB954' },
+                  '&.Mui-focused fieldset': { borderColor: '#1DB954' },
                 },
               }}
             />
@@ -159,19 +225,29 @@ const Register = () => {
               sx={{
                 mt: 3,
                 mb: 2,
+                borderRadius: '999px',
                 bgcolor: '#1DB954',
-                '&:hover': { bgcolor: '#1ed760' },
-                fontSize: '1rem',
+                color: '#181818',
+                fontWeight: 700,
+                fontSize: '1.1rem',
+                boxShadow: '0 2px 8px rgba(29,185,84,0.16)',
                 textTransform: 'none',
-                padding: '12px',
+                padding: '14px',
+                letterSpacing: '0.05em',
+                transition: 'all 0.2s',
+                '&:hover': {
+                  bgcolor: '#1ed760',
+                  boxShadow: '0 4px 18px rgba(29,185,84,0.25)',
+                  transform: 'translateY(-2px) scale(1.03)',
+                },
               }}
             >
-              Sign Up
+              {loading ? 'Signing Up...' : 'Sign Up'}
             </Button>
             <Box sx={{ textAlign: 'center', mt: 2 }}>
-              <Typography variant="body2" color="white">
+              <Typography variant="body2" sx={{ color: '#fff', opacity: 0.8 }}>
                 Already have an account?{' '}
-                <Link to="/login" style={{ color: '#1DB954', textDecoration: 'none' }}>
+                <Link to="/login" style={{ color: '#1DB954', textDecoration: 'underline', fontWeight: 600 }}>
                   Sign in
                 </Link>
               </Typography>

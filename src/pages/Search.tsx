@@ -34,12 +34,18 @@ const StyledCard = styled(Card)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   height: '100%',
-  transition: 'transform 0.2s ease-in-out',
+  borderRadius: 22,
+  background: 'rgba(255,255,255,0.11)',
+  boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.18)',
+  backdropFilter: 'blur(18px) saturate(180%)',
+  border: '1px solid rgba(255,255,255,0.15)',
+  transition: 'transform 0.22s cubic-bezier(.34,1.56,.64,1)',
   '&:hover': {
-    transform: 'translateY(-5px)',
+    transform: 'translateY(-8px) scale(1.025)',
+    boxShadow: '0 16px 48px 0 rgba(29,185,84,0.12)',
     '& .playButton': {
       opacity: 1,
-      transform: 'scale(1)',
+      transform: 'scale(1.08)',
     }
   },
 }));

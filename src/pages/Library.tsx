@@ -69,13 +69,50 @@ const Library: React.FC = () => {
     : playlists.find(p => p.id === selectedPlaylist);
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box
+      sx={{
+        minHeight: '100vh',
+        width: '100%',
+        maxWidth: 1200,
+        mx: 'auto',
+        p: { xs: 1, sm: 4 },
+        bgcolor: 'transparent',
+        background: 'linear-gradient(-45deg, #1db954, #232526, #121212, #1db954)',
+        backgroundSize: '400% 400%',
+        animation: 'gradientBG 12s ease infinite',
+        '@keyframes gradientBG': {
+          '0%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+          '100%': { backgroundPosition: '0% 50%' },
+        },
+      }}
+    >
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
-        <Typography variant="h4">Your Library</Typography>
+        <Typography variant="h4" sx={{ color: '#fff', fontWeight: 800, letterSpacing: '-0.5px', textShadow: '0 2px 8px rgba(0,0,0,0.10)' }}>
+          Your Library
+        </Typography>
         <Button
           variant="contained"
           startIcon={<Add />}
           onClick={() => setIsCreateDialogOpen(true)}
+          sx={{
+            borderRadius: '999px',
+            bgcolor: '#1DB954',
+            color: '#181818',
+            fontWeight: 700,
+            fontSize: '1.08rem',
+            boxShadow: '0 2px 8px rgba(29,185,84,0.16)',
+            textTransform: 'none',
+            px: 3,
+            py: 1.2,
+            letterSpacing: '0.05em',
+            transition: 'all 0.2s',
+            '&:hover': {
+              bgcolor: '#1ed760',
+              boxShadow: '0 4px 18px rgba(29,185,84,0.25)',
+              transform: 'translateY(-2px) scale(1.03)',
+            },
+          }}
         >
           Create Playlist
         </Button>

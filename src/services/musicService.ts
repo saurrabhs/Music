@@ -22,13 +22,14 @@ interface SongDetails {
 }
 
 class MusicService {
-    private baseUrl = 'https://saavn.dev/api';
+    private baseUrl = process.env.MUSIC_API_BASE_URL || 'https://saavn.dev/api';
     private axios = axios.create({
         baseURL: this.baseUrl,
         timeout: Number(process.env.REACT_APP_API_TIMEOUT) || 10000,
         headers: {
             'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            'User-Agent': 'Mozilla/5.0 (compatible; MusicApp/1.0)'
         }
     });
 
@@ -144,16 +145,40 @@ class MusicService {
                 params: { query }
             });
             
-            console.log('Search API Response:', response.data);
-            const results = response.data.data.results.map((song: any) => {
+            console.log('Search API Raw Response:', JSON.stringify(response.data));
+            let songs: any[] = [];
+            if (response.data?.data?.results) {
+                songs = response.data.data.results;
+            } else if (response.data?.results) {
+                songs = response.data.results;
+            } else {
+                console.error('Unexpected API response structure:', response.data);
+                throw new Error('Unexpected API response structure');
+            }
+            const results = songs.map((song: any) => {
                 const transformed = this.transformSearchResponse(song);
                 console.log('Transformed song:', transformed);
                 return transformed;
             });
             return results;
-        } catch (error) {
-            console.error('Error searching songs:', error);
-            throw error;
+        } catch (error: unknown) {
+            if (typeof error === 'object' && error !== null) {
+                if ('response' in error && error.response) {
+                    // @ts-ignore
+                    console.error('Error searching songs:', error.response.status, error.response.data);
+                } else if ('request' in error && error.request) {
+                    // @ts-ignore
+                    console.error('No response received from music API:', error.request);
+                } else if ('message' in error && typeof error.message === 'string') {
+                    // @ts-ignore
+                    console.error('Error setting up music API request:', error.message);
+                } else {
+                    console.error('Unknown error in music API request:', error);
+                }
+            } else {
+                console.error('Unknown error type in music API request:', error);
+            }
+            throw new Error('Music API is currently unavailable. Please try again later.');
         }
     }
 

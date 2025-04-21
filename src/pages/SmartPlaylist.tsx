@@ -126,10 +126,31 @@ const SmartPlaylist: React.FC = () => {
   };
 
   return (
-    <Container maxWidth="md" sx={{ py: 4 }}>
-      <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
-        <Typography variant="h4" gutterBottom>
-          Create Smart Playlist
+    <Box
+      sx={{
+        minHeight: '100vh',
+        width: '100%',
+        maxWidth: 1200,
+        mx: 'auto',
+        bgcolor: 'transparent',
+        background: 'linear-gradient(-45deg, #1db954, #232526, #121212, #1db954)',
+        backgroundSize: '400% 400%',
+        animation: 'gradientBG 12s ease infinite',
+        '@keyframes gradientBG': {
+          '0%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+          '100%': { backgroundPosition: '0% 50%' },
+        },
+        py: 6,
+        px: { xs: 1, sm: 4 },
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+    >
+      <Paper elevation={0} sx={{ p: { xs: 2, sm: 4 }, borderRadius: 6, mb: 4, maxWidth: 600, width: '100%', background: 'rgba(255,255,255,0.11)', boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.18)', backdropFilter: 'blur(18px) saturate(180%)', border: '1px solid rgba(255,255,255,0.15)' }}>
+        <Typography variant="h4" gutterBottom sx={{ color: '#fff', fontWeight: 800, letterSpacing: '-0.5px', textShadow: '0 2px 8px rgba(0,0,0,0.10)' }}>
+          Create a Smart Playlist
         </Typography>
         <Typography variant="body1" color="text.secondary" paragraph>
           Enter a theme, mood, artist name, or genre to automatically generate a playlist of up to 7 songs.
@@ -237,7 +258,7 @@ const SmartPlaylist: React.FC = () => {
           {success}
         </Alert>
       </Snackbar>
-    </Container>
+    </Box>
   );
 };
 

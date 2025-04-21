@@ -42,7 +42,21 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   ];
 
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: '#121212' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        minHeight: '100vh',
+        bgcolor: 'transparent',
+        background: 'linear-gradient(-45deg, #1db954, #232526, #121212, #1db954)',
+        backgroundSize: '400% 400%',
+        animation: 'gradientBG 12s ease infinite',
+        '@keyframes gradientBG': {
+          '0%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+          '100%': { backgroundPosition: '0% 50%' },
+        },
+      }}
+    >
       <Drawer
         variant="permanent"
         sx={{
@@ -51,12 +65,14 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
-            bgcolor: '#000000',
-            color: '#b3b3b3',
-            borderRight: '1px solid #282828',
+            bgcolor: 'rgba(24,24,24,0.72)',
+            color: '#fff',
+            borderRight: '1px solid rgba(40,40,40,0.45)',
             display: 'flex',
             flexDirection: 'column',
-            height: '100%'
+            height: '100%',
+            backdropFilter: 'blur(16px) saturate(140%)',
+            boxShadow: '0 4px 24px 0 rgba(0,0,0,0.16)',
           },
         }}
       >
